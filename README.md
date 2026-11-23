@@ -13,7 +13,7 @@ Tài liệu tổng quan thiết kế cơ sở dữ liệu quan hệ phục vụ 
 
 ## 2. Sơ đồ Thực thể – Kết hợp Mở rộng (EER / ERD)
 
-[./erd/erd.png]
+<img src="./erd/erd.png" alt="Sơ đồ EER hệ thống KIKI" width="100%" />
 
 **Điểm nổi bật của mô hình:**
 - **Kế thừa chồng lấp (Overlapping Specialization):** `User` phân rã thành `Admin` và `Customer` theo khóa `Phone_num`.
@@ -70,9 +70,3 @@ sql/
 ├── all_in_one.sql              # Tổng hợp lệnh SQL tạo toàn bộ schema, views, triggers và procedures
 └── app_queries.sql             # Tổng hợp 90 câu lệnh SQL từ tầng DAO
 ```
-
-Chạy nhanh toàn bộ trên **MySQL 8.0**:
-```bash
-mysql -u <user> -p < full_setup.sql
-```
-*(Nếu dùng DBeaver, mở file script tổng hợp và chọn **Execute SQL Script — `Alt+X`**).*
