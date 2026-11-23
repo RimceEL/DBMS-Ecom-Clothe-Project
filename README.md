@@ -7,14 +7,13 @@ Tài liệu tổng quan thiết kế cơ sở dữ liệu quan hệ phục vụ 
 ## 1. Hệ quản trị CSDL (DBMS) & Cấu hình
 
 - **DBMS chính:** **MySQL 8.0+** (`InnoDB`, `CHARSET=utf8mb4`, `COLLATE=utf8mb4_bin`) — hỗ trợ đầy đủ Tables, Indexes, Views, Triggers và Stored Procedures.
-- **Tương thích mở rộng:** Hỗ trợ chạy phần **Tables, Indexes và Views** trên **TiDB** *(lưu ý: TiDB chưa hỗ trợ Trigger và Stored Procedure nên cần chạy MySQL 8.0 để kiểm thử đầy đủ)*.
 - **Kết nối ứng dụng:** JDBC + `PreparedStatement`, hỗ trợ Transaction (`SELECT ... FOR UPDATE`, `commit`/`rollback`) ở tầng ứng dụng.
 
 ---
 
 ## 2. Sơ đồ Thực thể – Kết hợp Mở rộng (EER / ERD)
 
-[./erd/erd.png]
+[erd/erd.png]
 
 **Điểm nổi bật của mô hình:**
 - **Kế thừa chồng lấp (Overlapping Specialization):** `User` phân rã thành `Admin` và `Customer` theo khóa `Phone_num`.
@@ -29,7 +28,7 @@ Tài liệu tổng quan thiết kế cơ sở dữ liệu quan hệ phục vụ 
 | Thành phần | Số lượng | Mô tả ngắn |
 | :--- | :---: | :--- |
 | **Tables** | **16** | `User`, `Admin`, `Customer`, `Account`, `Address`, `Categories`, `Brand`, `Group_Product`, `Products`, `Attribute_value`, `Have`, `Images`, `Orders`, `Other_detail`, `Review`, `Adjust` |
-| **Indexes bổ sung** | **16** | Đánh theo các truy vấn `WHERE`, `JOIN`, `ORDER BY`, `GROUP BY` thực tế từ 8 lớp DAO (không trùng PK/FK có sẵn) |
+| **Indexes bổ sung** | **16** | Đánh theo các truy vấn `WHERE`, `JOIN`, `ORDER BY`, `GROUP BY` thực tế từ 8 lớp DAO |
 | **Views** | **6** | `vw_product_catalog`, `vw_product_variant_details`, `vw_order_summary`, `vw_daily_revenue`, `vw_low_stock_products`, `vw_admin_adjust_log` |
 | **Triggers** | **8** | Ràng buộc toàn vẹn `BEFORE INSERT/UPDATE` (giá, tồn kho, số lượng, trạng thái đơn/thanh toán, điểm đánh giá, vai trò) — không xung đột transaction trừ/hoàn kho trong Java |
 | **Stored Procedures** | **6** | `sp_get_revenue_by_date_range`, `sp_get_top_selling_products`, `sp_get_low_stock_products`, `sp_search_product_groups`, `sp_get_customer_order_history`, `sp_restock_product_with_log` |
@@ -64,10 +63,11 @@ Tài liệu tổng quan thiết kế cơ sở dữ liệu quan hệ phục vụ 
 
 ```text
 sql/
-├── 01_schema_and_indexes.sql   # Khởi tạo DB, 16 bảng và 16 indexes
+├── 01_schema.sql               # Khởi tạo DB, 16 bảng và 16 indexes
 ├── 02_views.sql                # 6 Views báo cáo & tổng hợp
 ├── 03_triggers.sql             # 8 Triggers kiểm tra toàn vẹn (MySQL 8.0)
 ├── 04_procedures.sql           # 6 Stored Procedures (MySQL 8.0)
+├── all_in_one.sql              # Tổng hợp lệnh SQL tạo toàn bộ schema, views, triggers và procedures
 └── app_queries.sql             # Tổng hợp 90 câu lệnh SQL từ tầng DAO
 ```
 
