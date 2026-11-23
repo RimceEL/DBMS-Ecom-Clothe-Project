@@ -13,7 +13,7 @@ Tài liệu tổng quan thiết kế cơ sở dữ liệu quan hệ phục vụ 
 
 ## 2. Sơ đồ Thực thể – Kết hợp Mở rộng (EER / ERD)
 
-[erd/erd.png]
+[./erd/erd.png]
 
 **Điểm nổi bật của mô hình:**
 - **Kế thừa chồng lấp (Overlapping Specialization):** `User` phân rã thành `Admin` và `Customer` theo khóa `Phone_num`.
