@@ -68,5 +68,6 @@ sql/
 ├── 03_triggers.sql             # 8 Triggers kiểm tra toàn vẹn (MySQL 8.0)
 ├── 04_procedures.sql           # 6 Stored Procedures (MySQL 8.0)
 ├── all_in_one.sql              # Tổng hợp lệnh SQL tạo toàn bộ schema, views, triggers và procedures
-└── app_queries.sql             # Tổng hợp 90 câu lệnh SQL từ tầng DAO
+├── app_queries.sql             # Tổng hợp 90 câu lệnh SQL từ tầng DAO trong đồ án OOP
+└── insert_fake_data.sql        # Tổng hợp các câu lệnh insert data giả để kiểm tra ràng buộc và các quan hệ triển khai như thế nào (Chỉ nên sử dụng trên database copy, không nên dùng trên database mà đồ án OOP đang hoạt động)
 ```
